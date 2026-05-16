@@ -15,6 +15,8 @@ The [website](http://fm-agent.ai/) of FM-Agent provides an online service for re
   - [Install Dependencies](#install-dependencies)
 - [Configuration](#configuration)
 - [Quick Start](#quick-start)
+  - [Option 1: Using OpenCode (Original)](#option-1-using-opencode-original)
+  - [Option 2: Using Claude Code CLI (Alternative)](#option-2-using-claude-code-cli-alternative)
 - [Important Notes](#important-notes)
 - [Citation](#citation)
 - [Contact](#contact)
@@ -86,6 +88,10 @@ You can open your oh-my-opencode config file (typically ~/.config/opencode/oh-my
 
 ## Quick Start
 
+FM-Agent supports two execution modes: OpenCode (original) and Claude Code CLI (alternative).
+
+### Option 1: Using OpenCode (Original)
+
 ```bash
 python3 main.py <proj_dir>
 ```
@@ -93,6 +99,35 @@ python3 main.py <proj_dir>
 | Argument | Description |
 |---|---|
 | `proj_dir` | Directory of codebase that you want to check correctness |
+
+### Option 2: Using Claude Code CLI (Alternative)
+
+If you prefer using Claude Code CLI instead of OpenCode, you can use `main_claude.py`:
+
+**Requirements:**
+- [Claude Code CLI](https://github.com/anthropics/claude-code) installed and available in PATH
+- Anthropic API key (supports both OpenRouter and direct Anthropic API)
+
+**Setup:**
+
+```bash
+# Option A: Using OpenRouter (recommended for concurrent requests)
+export OPENROUTER_API_KEY="your-openrouter-api-key"
+export LLM_MODEL="anthropic/claude-sonnet-4"
+
+# Option B: Using Anthropic API directly
+export ANTHROPIC_AUTH_TOKEN="your-anthropic-api-key"
+export ANTHROPIC_BASE_URL="https://api.anthropic.com"  # or your custom endpoint
+export LLM_MODEL="claude-sonnet-4"
+```
+
+**Run:**
+
+```bash
+python3 main_claude.py <proj_dir>
+```
+
+The Claude Code CLI version provides the same functionality as the OpenCode version, with automatic discovery of CLAUDE.md files and support for custom API endpoints.
 
 ### Output
 
