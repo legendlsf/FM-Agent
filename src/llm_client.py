@@ -4,9 +4,16 @@ import random
 from config import *
 from openai import OpenAI, RateLimitError, BadRequestError
 
-_openrouter_client = OpenAI(api_key=LLM_OPENROUTER_API_KEY, base_url=LLM_OPENROUTER_API_BASE_URL)
-
+_openrouter_client = None
 _MAX_RATE_LIMIT_RETRIES = 20
+
+
+def _get_client():
+    """Lazy initialization of OpenAI client."""
+    global _openrouter_client
+    if _openrouter_client is None:
+        _openrouter_client = OpenAI(api_key=LLM_OPENROUTER_API_KEY, base_url=LLM_OPENROUTER_API_BASE_URL)
+    return _openrouter_client
 
 
 def _retry_create(client, model, messages):
